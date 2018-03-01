@@ -1,0 +1,239 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "An H2020 5GTANGO project",
+        "version": "0.0.1",
+        "title": "5GTANGO VnV Test Result Repository REST API",
+        "termsOfService": "https://5gtango.eu/",
+        "license": {
+            "name": "Apache License 2.0",
+            "url": "https://github.com/sonata-nfv/tng-vnv-trr/blob/master/LICENSE"
+        }
+    },
+    "host": "tng-vnv-trr:6300",
+    "basePath": "/tng-vnv-trr",
+    "tags": [
+        {
+            "name": "test-plan-resource",
+            "description": "Test Plan Resource"
+        }
+    ],
+    "paths": {
+        "/api/v1/test-plans": {
+            "post": {
+                "tags": [
+                    "test-plan-resource"
+                ],
+                "summary": "createTestPlan",
+                "operationId": "createTestPlanUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "testPlan",
+                        "description": "testPlan",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TestPlan"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/TestPlan"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/test-plans/{testPlanId}": {
+            "get": {
+                "tags": [
+                    "test-plan-resource"
+                ],
+                "summary": "findTestPlan",
+                "operationId": "findTestPlanUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "testPlanId",
+                        "in": "path",
+                        "description": "testPlanId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/TestPlan"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "test-plan-resource"
+                ],
+                "summary": "updateTestPlan",
+                "operationId": "updateTestPlanUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "testPlan",
+                        "description": "testPlan",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TestPlan"
+                        }
+                    },
+                    {
+                        "name": "testPlanId",
+                        "in": "path",
+                        "description": "testPlanId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/TestPlan"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "NetworkService": {
+            "type": "object",
+            "required": [
+                "name",
+                "vendor",
+                "version"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "allowEmptyValue": false
+                },
+                "status": {
+                    "type": "string"
+                },
+                "vendor": {
+                    "type": "string",
+                    "allowEmptyValue": false
+                },
+                "version": {
+                    "type": "string",
+                    "allowEmptyValue": false
+                }
+            },
+            "title": "NetworkService"
+        },
+        "TestPlan": {
+            "type": "object",
+            "required": [
+                "networkServices",
+                "testPlanId",
+                "testSuites"
+            ],
+            "properties": {
+                "networkServices": {
+                    "type": "array",
+                    "allowEmptyValue": false,
+                    "items": {
+                        "$ref": "#/definitions/NetworkService"
+                    }
+                },
+                "status": {
+                    "type": "string"
+                },
+                "testPlanId": {
+                    "type": "string",
+                    "allowEmptyValue": false
+                },
+                "testSuites": {
+                    "type": "array",
+                    "allowEmptyValue": false,
+                    "items": {
+                        "$ref": "#/definitions/TestSuite"
+                    }
+                }
+            },
+            "title": "TestPlan"
+        },
+        "TestSuite": {
+            "type": "object",
+            "required": [
+                "name",
+                "version"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "allowEmptyValue": false
+                },
+                "status": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string",
+                    "allowEmptyValue": false
+                }
+            },
+            "title": "TestSuite"
+        }
+    }
+}

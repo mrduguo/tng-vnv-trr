@@ -1,0 +1,8 @@
+server:
+  port: 6300
+  contextPath: /tng-vnv-trr
+spring.data.mongodb:
+  host: mongodb
+  port: 27017
+  db: vnv-test-result-repository
+  uri: mongodb://${spring.data.mongodb.host}:${spring.data.mongodb.port}/${spring.data.mongodb.db}
